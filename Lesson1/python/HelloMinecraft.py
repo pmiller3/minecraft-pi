@@ -10,4 +10,4 @@ minecraft = Minecraft.create()
 minecraft.postToChat("Hello Minecraft!")
 
 # Something happening in the terminal is nice too
-print("Hello Minecraft script completed");
+print("Hello Minecraft script completed")

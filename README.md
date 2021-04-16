@@ -11,8 +11,11 @@ This should be pretty straightfoward - just a skeletal project to demonstrate th
 
 ## Lesson 2 - Jump!
 This lesson will build upon the previous one, and introduce some more concepts:
+- Storing information in a variable
 - API calls to gather info about the world (in this case, the player position)
 - API calls to set something in the world (in this case, translate the player position)
+- Reading from a file (not Minecraft, just coding!)
+- Introduction to .gitignore
 
 ## Lesson 3 - Frostwalker Boots
 This lesson will build upon the previous one, and introduce some more concepts:
