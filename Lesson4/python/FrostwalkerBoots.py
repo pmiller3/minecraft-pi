@@ -46,6 +46,7 @@ minecraft = Minecraft.create(host)
 
 # Let's get a variable ready for making this not run forever
 bootsDuration = 30
+frametime = 1/60 # 60 frames per second, of FPS
 expireTime = time.time() + bootsDuration
 print("Frostwalker boots activated!  They'll expire in " + str(bootsDuration) + " seconds.")
 blocksToConvert = [Block.WATER, Block.WATER_FLOWING, Block.WATER_STATIONARY]
@@ -91,8 +92,8 @@ while time.time() < expireTime :
         # If it were outside, it might update too fast to track changes in movement
         lastX, lastY, lastZ = x, y, z
 
-    # We don't want to check too fast, it'll spam the server... ~60 times/second should be good
-    time.sleep(0.0166667)
+    # We don't want to check too fast, it'll spam the server
+    time.sleep(frametime)
 
 # Something happening in the terminal is nice too
-print("Hello Minecraft script completed")
+print("Frostwalker Boots script completed")
