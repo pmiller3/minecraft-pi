@@ -17,8 +17,12 @@ This lesson will build upon the previous one, and introduce some more concepts:
 - Reading from a file (not Minecraft, just coding!)
 - Introduction to .gitignore
 
-## Lesson 3 - Frostwalker Boots
+## Lesson 3 - Greenfeet
 This lesson will build upon the previous one, and introduce some more concepts:
 - Control structures (Loops and If statements)
 - API calls to gather info about the world in the loop
 - API calls to set info conditionally
+
+## Lesson 4 - Frostwalker Boots
+This lesson will build upon the previous one, and introduce some more concepts:
+- Tracking state over time

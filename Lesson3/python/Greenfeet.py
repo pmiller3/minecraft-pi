@@ -22,27 +22,23 @@ print("Connecting to: " + host)
 # Create and store a connection to our game in a variable
 minecraft = Minecraft.create(host)
 
-# What are frostwalker boots?  Well, they're a bit of magic... they allow the player to
-# walk on water by freezing it!  How can we achieve this?  Let's break it down into some steps...
-# First, to walk on water, we'd have to know what the player is walking on, right?
+# What are greenfeet?  Well, they're a bit of magic... they allow the player to
+# change dirt to grass!  How can we achieve this?  Let's break it down into some steps...
+# First, to change dirt, we'd have to know what the player is walking on, right?
 # To do that, we'd need to know two things, in order:
 # Where the player is in the world, and what block are they standing on?
 # The API let's us do both!  We already know the first bit, so now it's
 # just part two, asking the API what the block type is one block below the player.
-# Then, with our knowledge in hand, we just need to check if it's water.
-# If it is, we again use the API to tell the world to turn that block to ice.
+# Then, with our knowledge in hand, we just need to check if it's dirt.
+# If it is, we again use the API to tell the world to turn that block to grass.
 # But for this to be effective, it can't just happen once... it has to happen
 # for some amount of time.  So we'll have to make some sort of loop to check
 # and recheck at frequent enough intervals
 
-# This first attempt doesn't quite work right... we really need to find out
-# if the player is about to go over top water, not if they're already falling in
-
 # Let's get a variable ready for making this not run forever
 bootsDuration = 10
 expireTime = time.time() + bootsDuration
-print("Frostwalker boots activated!  They'll expire in " + str(bootsDuration) + " seconds.")
-blocksToConvert = [Block.WATER, Block.WATER_FLOWING, Block.WATER_STATIONARY]
+print("Greenfeet activated!  They'll expire in " + str(bootsDuration) + " seconds.")
 
 # Now let's use a loop to run it for this duration
 while time.time() < expireTime :
@@ -52,13 +48,13 @@ while time.time() < expireTime :
     # Let's get the block they're standing on... or 1 Y coordinate below
     blockBeneath = minecraft.getBlock(x, y - 1, z)
     
-    # Only convert water blocks if they're being stood on
-    if blockBeneath in blocksToConvert :
+    # Only convert dirt blocks if they're being stood on
+    if blockBeneath == Block.DIRT :
         # This is the actual conversion
-        minecraft.setBlock(x, y - 1, z, Block.ICE)
+        minecraft.setBlock(x, y - 1, z, Block.GRASS)
 
     # We don't want to check too fast, it'll spam the server... ~60 times/second should be good
     time.sleep(0.0166667)
 
 # Something happening in the terminal is nice too
-print("Hello Minecraft script completed")
+print("Greenfeet script completed")
