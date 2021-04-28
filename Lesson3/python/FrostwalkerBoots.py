@@ -46,11 +46,8 @@ blocksToConvert = [Block.WATER, Block.WATER_FLOWING, Block.WATER_STATIONARY]
 
 # Now let's use a loop to run it for this duration
 while time.time() < expireTime :
-    # Ask the Minecraft game where the player is
-    playerPosition = minecraft.player.getPos()
-
-    # A more convenient syntax we can use
-    x, y, z = playerPosition
+    # Ask the Minecraft game where the player is, in the convenient syntax
+    x, y, z = minecraft.player.getPos()
 
     # Let's get the block they're standing on... or 1 Y coordinate below
     blockBeneath = minecraft.getBlock(x, y - 1, z)
