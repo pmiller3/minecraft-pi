@@ -34,4 +34,4 @@ x, y, z = playerPosition
 minecraft.player.setPos(x, y + 10, z)
 
 # Something happening in the terminal is nice too
-print("Hello Minecraft script completed")
+print("Jump! script completed")
