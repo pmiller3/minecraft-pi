@@ -1,8 +1,13 @@
 # Import the library so we can talk to the game
 from mcpi.minecraft import Minecraft
+# We need to know about blocks too!
+from mcpi import block as Block
 
 # Import the JSON library so we can parse our JSON config
 import json
+
+# Import time library to only loop for so long, and pause
+import time 
 
 # Open the config
 host = 'localhost'    
@@ -30,16 +35,33 @@ minecraft = Minecraft.create(host)
 # for some amount of time.  So we'll have to make some sort of loop to check
 # and recheck at frequent enough intervals
 
-# Ask the Minecraft game where the player is
-playerPosition = minecraft.player.getPos()
+# This first attempt doesn't quite work right... we really need to find out
+# if the player is about to go over top water, not if they're already falling in
 
-# We can see in the output, the player position is represented
-# as a vector with 3 numbers in it - these are the X, Y and Z
-# coordinates in 3d space
-print(playerPosition)
+# Let's get a variable ready for making this not run forever
+bootsDuration = 10
+expireTime = time.time() + bootsDuration
+print("Frostwalker boots activated!  They'll expire in " + str(bootsDuration) + " seconds.")
+blocksToConvert = [Block.WATER, Block.WATER_FLOWING, Block.WATER_STATIONARY]
 
-# A more convenient syntax we can use
-x, y, z = playerPosition
+# Now let's use a loop to run it for this duration
+while time.time() < expireTime :
+    # Ask the Minecraft game where the player is
+    playerPosition = minecraft.player.getPos()
+
+    # A more convenient syntax we can use
+    x, y, z = playerPosition
+
+    # Let's get the block they're standing on... or 1 Y coordinate below
+    blockBeneath = minecraft.getBlock(x, y - 1, z)
+    
+    # Only convert water blocks if they're being stood on
+    if blockBeneath in blocksToConvert :
+        # This is the actual conversion
+        minecraft.setBlock(x, y - 1, z, Block.ICE)
+
+    # We don't want to check too fast, it'll spam the server... ~60 times/second should be good
+    time.sleep(0.0166667)
 
 # Something happening in the terminal is nice too
 print("Hello Minecraft script completed")
