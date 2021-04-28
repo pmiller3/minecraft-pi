@@ -26,3 +26,5 @@ This lesson will build upon the previous one, and introduce some more concepts:
 ## Lesson 4 - Frostwalker Boots
 This lesson will build upon the previous one, and introduce some more concepts:
 - Tracking state over time
+- Lists!
+- Functions!
