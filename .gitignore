@@ -1,0 +1,2 @@
+# Ignore config file, it contains an IP address
+.config

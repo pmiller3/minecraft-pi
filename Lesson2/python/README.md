@@ -48,3 +48,44 @@ minecraft.player.setPos(x, y + 10, z)
 ```
 
 Here, we're doing the actual work fo moving up, and I've left in a line where you didn't actually break out the x, y, and z, and you can see how much cleaner it is on the line left in.  But that's it!  We tell the game to set the player's position to the same x coordinate, 10 more than the y coordinate (up), and the same z coordinate.  So it's like they jumped, much higher than normal.
+
+## Reading config from a file
+To make this a little easier to use, and to allow someone to run the code on one machine (doesn't even have to be a Pi), while seeing the results on another Pi, I've added a convenient top-level file called `.config` that is in JSON format.  It's a pretty simple little file, that will just house where our code should try to connect to.  This is built-in Python behavior, and reading files, storing their contents in variables, has nothing to do with Minecraft - so this is a useful tool in all your projects.  First, the JSON file itself, `.config`:
+
+```
+{
+    "minecraft":{
+        "host":"localhost"
+    }
+}
+```
+I've left this example pointing to `localhost` but normally you'd want to point to some IP address, probably a local one on your network that will look like `192.168.123.123`.  If you're on your pi, you can open a terminal and use the `ifconfig` command to find it (and it will spit out several, including your internet facing IP address).  It's somewhat sensitive, and not worth storing in a shared repo, but the next bit will cover that.
+
+```
+# Import the JSON library so we can parse our JSON config
+import json
+
+# Open the config
+host = 'localhost'    
+try:
+    with open('.config') as json_config:
+        config = json.load(json_config)
+        host = config['minecraft']['host']
+except IOError:
+    print("No config file loaded")
+print("Connecting to: " + host)
+
+# Create and store a connection to our game in a variable
+minecraft = Minecraft.create(host)
+```
+
+And that's the code itself.  It has a `try` statement which is beyond the scope of this lesson, but no need to worry - it sets a default host option of localhost, and if it can open the file, and read a value for `minecraft.host` then it will put that value there.  It'll print that value to the console so you can see what's actually read in, and later on, it uses that value to connect to Minecraft.  Now we're able to dynamically connect, and can code the next project on a different machine, or not.
+
+## Using .gitignore to keep files out of source control
+
+So now that we have our config, we probably want to keep something like the IP address safe, or at least not shared because my IP address is not yours, and it won't work for you.  So simply, git allows for a file already part of this repo, `.gitignore` that defines what files should not be part of what gets passed around.  Besides secure files, we don't want to put up anything generated (there are of course exceptions to every rule) and the one I had was pre-configured for Python.  All I've done is add one little section (this is in a new top-level config file, so it's shared with all my sub-projects in this whole repo), ignoring the aforementioned config file, and we can use the `#` character to comment as well, so that anyone else (including our future self) can understand the intent there:
+
+```
+# Ignore config file, it contains an IP address
+.config
+```
