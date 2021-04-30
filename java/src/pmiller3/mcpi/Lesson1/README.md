@@ -15,11 +15,13 @@ Also, note that this `README.md` file itself is in [Markdown](https://en.wikiped
 The `HelloMinecraft.java` is only a few real lines of code - plus some structure and comments.  For purposes of this lesson, we'll break them down here.  First, start Minecraft pi edition, and then run the script.  First, unlike Python, you'll need the library itself as part of the project (and there are other dependency management systems out there, but this will do for ease of use) - it's the `lib/McPi.jar` file with the project.  Starting from the top, here's what goes down:
 
 ```
+// Create a package, or namespace, for this lesson
+package pmiller3.mcpi.Lesson1;
 // Import the library so we can talk to the game
 import pi.Minecraft;
 ```
 
-What we've done here is import the library (that is, the underlying code) that let's us talk to Minecraft.  That's great, because now we don't have to worry about that part of it - we can just get on to the good bits of actually doing things rather than worry about networking and what content is expected to traverse the connection.
+What we've done here is created a namespace, using the `package` keyword to differentiate the code in this lesson from any future ones.  Then, using the `import` keyword, we've brought in the library (that is, the underlying code) that let's us talk to Minecraft.  That's great, because now we don't have to worry about that part of it - we can just get on to the good bits of actually doing things rather than worry about networking and what content is expected to traverse the connection.
 
 ```
 // Java, being object oriented, wants classes defined

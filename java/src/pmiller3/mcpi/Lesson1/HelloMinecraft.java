@@ -1,3 +1,6 @@
+// Create a package, or namespace, for this lesson
+package pmiller3.mcpi.Lesson1;
+
 // Import the library so we can talk to the game
 import pi.Minecraft;
 
@@ -8,7 +11,7 @@ public class HelloMinecraft {
         // Create and store a connection to our game in a variable
         // By leaving the argument empty, it connects locally, but
         // we could provide an IP address if we wanted to a remote pi
-        Minecraft minecraft = Minecraft.connect();
+        Minecraft minecraft = Minecraft.connect("192.168.50.138");
 
         // Make sure we get something to happen in the game
         minecraft.postToChat("Hello Minecraft, from Java!");
