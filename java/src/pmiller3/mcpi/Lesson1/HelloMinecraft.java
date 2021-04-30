@@ -11,7 +11,7 @@ public class HelloMinecraft {
         // Create and store a connection to our game in a variable
         // By leaving the argument empty, it connects locally, but
         // we could provide an IP address if we wanted to a remote pi
-        Minecraft minecraft = Minecraft.connect("192.168.50.138");
+        Minecraft minecraft = Minecraft.connect();
 
         // Make sure we get something to happen in the game
         minecraft.postToChat("Hello Minecraft, from Java!");
