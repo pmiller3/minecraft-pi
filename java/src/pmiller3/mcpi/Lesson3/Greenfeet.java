@@ -74,7 +74,7 @@ public class Greenfeet {
     }
 
     // Read the configuration file and populate host
-    public static void readConfig() {
+    private static void readConfig() {
         Properties properties = new Properties();
         InputStream filestream = null;
         try {

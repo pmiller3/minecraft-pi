@@ -41,9 +41,6 @@ minecraft = Minecraft.create(host)
 # for some amount of time.  So we'll have to make some sort of loop to check
 # and recheck at frequent enough intervals
 
-# This first attempt doesn't quite work right... we really need to find out
-# if the player is about to go over top water, not if they're already falling in
-
 # Let's get a variable ready for making this not run forever
 bootsDuration = 30
 frametime = 1/60 # 60 frames per second, of FPS
