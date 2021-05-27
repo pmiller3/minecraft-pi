@@ -14,6 +14,7 @@ import pi.Block;
 public class FrostwalkerBoots implements IFootwear {
     private static final List<Block> blocksToConvert =
         Arrays.asList(Block.WATER, Block.WATER_FLOWING, Block.WATER_STATIONARY);
+    private static final Block TRANSFORM_BLOCK = Block.ICE;
     private Minecraft minecraft;
 
     public FrostwalkerBoots(Minecraft minecraft) {
@@ -27,7 +28,7 @@ public class FrostwalkerBoots implements IFootwear {
     @Override
     public boolean attemptAction(BlockIntel blockIntel) {
         if(blocksToConvert.contains(blockIntel.getNextBlock())) {
-            minecraft.setBlock(blockIntel.getNextBeneathPosition(), Block.ICE);
+            minecraft.setBlock(blockIntel.getNextBeneathPosition(), TRANSFORM_BLOCK);
             return true;
         }
         return false;

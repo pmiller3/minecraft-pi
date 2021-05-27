@@ -7,6 +7,7 @@ import pi.Minecraft;
 
 public class Greenfeet implements IFootwear {
     private static final Block TRIGGER_BLOCK = Block.DIRT;
+    private static final Block TRANSFORM_BLOCK = Block.GRASS;
     private Minecraft minecraft;
 
     public Greenfeet(Minecraft minecraft) {
@@ -20,7 +21,7 @@ public class Greenfeet implements IFootwear {
     @Override
     public boolean attemptAction(BlockIntel blockIntel) {
         if(TRIGGER_BLOCK.equals(blockIntel.getBlockUnderfoot())) {
-            minecraft.setBlock(blockIntel.getBeneathPosition(), Block.GRASS);
+            minecraft.setBlock(blockIntel.getBeneathPosition(), TRANSFORM_BLOCK);
             return true;
         }
         return false;
