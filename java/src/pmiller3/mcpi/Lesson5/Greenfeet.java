@@ -1,20 +1,14 @@
 package pmiller3.mcpi.Lesson5;
 
-import java.security.InvalidParameterException;
-
 import pi.Block;
 import pi.Minecraft;
 
-public class Greenfeet implements IFootwear {
+public class Greenfeet extends Boots {
     private static final Block TRIGGER_BLOCK = Block.DIRT;
     private static final Block TRANSFORM_BLOCK = Block.GRASS;
-    private Minecraft minecraft;
 
     public Greenfeet(Minecraft minecraft) {
-        if(minecraft == null) {
-            throw new InvalidParameterException("Cannot provide null minecraft connection");
-        }
-        this.minecraft = minecraft;
+        super(minecraft);
     }
 
     // Implement Greenfeet

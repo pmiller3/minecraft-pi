@@ -13,7 +13,6 @@ import java.util.Properties;
 
 // Import the library so we can talk to the game
 import pi.Minecraft;
-import pi.Block;
 import pi.Vec;
 import pi.VecFloat;
 

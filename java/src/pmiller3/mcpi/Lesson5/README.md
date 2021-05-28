@@ -18,24 +18,37 @@ public interface IFootwear {
 }
 ```
 
-That's it, that's all the relevant code in the interface; just a series of function signatures that all implementing classes will have to have (if not, it's a compilation error).  Now let's look at the an implementation:
+That's it, that's all the relevant code in the interface; just a series of function signatures that all implementing classes will have to have (if not, it's a compilation error).  Next, let's look at an `abstract` parent class, `Boots.java`:
 
 ```
-public class Greenfeet implements IFootwear {
-    private static final Block TRIGGER_BLOCK = Block.DIRT;
-    private Minecraft minecraft;
+public abstract class Boots implements IFootwear {
+    protected Minecraft minecraft;
 
-    public Greenfeet(Minecraft minecraft) {
+    public Boots(Minecraft minecraft) {
         if(minecraft == null) {
             throw new InvalidParameterException("Cannot provide null minecraft connection");
         }
         this.minecraft = minecraft;
     }
+}
+```
 
+The abstract keyword means that you can't just instantiate `new Boots()`.  Also note the keyword `implements`.  That means this class will have to implement the `attemptAction()` function from the interface.  However, we don't have to do this one, as it's abstract; but, any child classes will have to do so.  We're doing this to share code, particularly what's in that constructor, holding the connection to Minecraft and the requirements the interface puts on it.  Crucially, it's also at the access level `protected` - there are plenty of resources on these levels, but `private` is restricted to just the file/scope in question, while `public` is open to everybody, so `protected` is our best choice as it lets package peers have access.  Now let's look at one of those peers, an implementation:
+
+```
+public class Greenfeet extends Boots {
+    private static final Block TRIGGER_BLOCK = Block.DIRT;
+    private static final Block TRANSFORM_BLOCK = Block.GRASS;
+
+    public Greenfeet(Minecraft minecraft) {
+        super(minecraft);
+    }
+
+    // Implement Greenfeet
     @Override
     public boolean attemptAction(BlockIntel blockIntel) {
         if(TRIGGER_BLOCK.equals(blockIntel.getBlockUnderfoot())) {
-            minecraft.setBlock(blockIntel.getBeneathPosition(), Block.GRASS);
+            minecraft.setBlock(blockIntel.getBeneathPosition(), TRANSFORM_BLOCK);
             return true;
         }
         return false;
@@ -43,8 +56,8 @@ public class Greenfeet implements IFootwear {
 }
 ```
 
-First we define the class name, its access level, and most importantly, that it implements our interface, so it can be used as such.  We then have a few private member variables, the first two of which are `static` - that means its the same for the whole class, `Greenfeet` in this instance.  It's also `final` meaning it will never change - just a convenience to make the program not store it over and over again (because greenfeet will always trigger on DIRT, and always make GRASS).  The third is neither of those, but we need something to hold the connection to the game, so we can set the block later.  The first function is a `constructor`, it tells you how to get a new instance of these Greenfeet boots.  So you could actually run a program connecting to multiple Minecraft games and make Greenfeet boots for each of them.  The second function, with the `@Override` annotation, is what implements the interface.  There, we put all of our Greenfeet specific code - you can see it uses the two static fields to check and set block types, and the connection that was passed in and stored from the constructor.
+First we define the class name, its access level, and most importantly, that it extends `Boots`, so it gets the code in that class.  We then have a couple private member variables, which are `static` - that means its the same for the whole class, `Greenfeet` in this instance.  It's also `final` meaning it will never change - just a convenience to make the program not store it over and over again (because greenfeet will always trigger on DIRT, and always make GRASS).  The third is neither of those, but we need something to hold the connection to the game, so we can set the block later.  The first function is a `constructor`, it tells you how to get a new instance of these Greenfeet boots.  So you could actually run a program connecting to multiple Minecraft games and make Greenfeet boots for each of them.  It uses the `super` keyword to call the constructor for the parent `Boots` class first, saving us the trouble and giving us a common bit we need. The second function, with the `@Override` annotation, is what implements the interface.  There, we put all of our Greenfeet specific code - you can see it uses the two static fields to check and set block types, and the connection that was passed in and stored from the constructor.
 
-Now, each one becomes its own, smaller file, known as a `class` (which, in Java, really everything is) that uses the `implements` keyword to indicate that its going to be a footwear, and bears the responsibility of defining that function.  Classes are a basic building block of Object-Oriented programming; they provide a template for some concept you want to create, in our case, these specific boots.  You can also extend classes, so for example, we could have an `abstract` Boot class, that has general things that apply to all Boots, and extend into specific ones.  In our case we've chosen an `interface` as we only want to define functions, that is, what we can do to interact with boots.  But you could just as easily, say, define an `Automobile` class, that could `drive()` and have `int year, string make, string model`, while `Car`, `Truck`, and `Van` extend it with different numbers of seats, or Trucks could say, `loadBed()` which would be unique to it.  It's about reusing and sharing logic, so that you only have to define common things once, and we have a way to model this.  So that's how this little bit will work - anyone with a `IFootwear` knows they can call `attemptAction(BlockIntel blockIntel)` and get back a bool, and the details of what happens depends on what type of IFootwear they actually had.
+Now, each one becomes its own, smaller file, known as a `class` (which, in Java, really everything is) that uses the `implements` keyword to indicate that its going to be a footwear, and bears the responsibility of defining that function.  Classes are a basic building block of Object-Oriented programming; they provide a template for some concept you want to create, in our case, these specific boots.  We also extended a class, our `abstract` Boot class, that has general things that apply to all Boots, and extended into specific ones.  You can see in the example above, the specific logic to Greenfeet is really all that's in the class.  Everything else has been defined once elsewhere, so we've done a decent job at minimizing code to write to make new Boots.
 
 And lastly, in our main `Footwear.java` class that actually runs, we build a list of `IFootwear` and fill it with one of each type.  Later on, we gather the `BlockIntel` only once, and feed it to all 3 footwear.  They'll decide on their own based on the data whether or not to do what they do, and actually do it.  And then we'll loop again.  It doesn't need to know which footwear it's actually got, just that it can call `attemptAction()` and the concrete implementation will take care of the rest.

@@ -1,21 +1,15 @@
 package pmiller3.mcpi.Lesson5;
 
-import java.security.InvalidParameterException;
-
 import pi.Block;
 import pi.Minecraft;
 import pi.Vec;
 
-public class JumpBoots implements IFootwear {
+public class JumpBoots extends Boots {
     private static final int JUMP_HEIGHT = 10;
     private static final Block TRIGGER_BLOCK = Block.GRASS_TALL;
-    private Minecraft minecraft;
 
     public JumpBoots(Minecraft minecraft) {
-        if(minecraft == null) {
-            throw new InvalidParameterException("Cannot provide null minecraft connection");
-        }
-        this.minecraft = minecraft;
+        super(minecraft);
     }
 
     // Implement Jump Boots

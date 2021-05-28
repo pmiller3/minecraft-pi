@@ -1,8 +1,6 @@
 // Create a package, or namespace, for this lesson
 package pmiller3.mcpi.Lesson5;
 
-// imports for reading config file, and doing time maths
-import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,17 +9,13 @@ import pi.Minecraft;
 import pi.Block;
 
 // Java, being object oriented, wants classes defined
-public class FrostwalkerBoots implements IFootwear {
+public class FrostwalkerBoots extends Boots {
     private static final List<Block> blocksToConvert =
         Arrays.asList(Block.WATER, Block.WATER_FLOWING, Block.WATER_STATIONARY);
     private static final Block TRANSFORM_BLOCK = Block.ICE;
-    private Minecraft minecraft;
 
     public FrostwalkerBoots(Minecraft minecraft) {
-        if(minecraft == null) {
-            throw new InvalidParameterException("Cannot provide null minecraft connection");
-        }
-        this.minecraft = minecraft;
+        super(minecraft);
     }
 
     // Implement Frostwalker Boots
