@@ -115,7 +115,7 @@ public class Footwear {
         }
 
         // Something happening in the terminal is nice too
-        System.out.println("Frostwalker Boots script completed");
+        System.out.println("Footwear script completed");
     }
 
     // Read the configuration file and populate host
