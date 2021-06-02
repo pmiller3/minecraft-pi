@@ -46,9 +46,9 @@ public class Footwear {
         // and recheck at frequent enough intervals
 
         // Let's get a variable ready for making this not run forever, in seconds
-        int bootsDuration = 10;
+        int bootsDuration = 30;
         Instant expireTime = Instant.now().plusSeconds(bootsDuration);
-        System.out.println("Frostwalker Boots activated!  They'll expire in " + bootsDuration + " seconds.");
+        System.out.println("Footwear activated!  They'll expire in " + bootsDuration + " seconds.");
         long frametime = 1000 / 60; // 60 frames per second, of FPS, in milliseconds
 
         // Build and hold all types of footwear we want.
