@@ -32,18 +32,7 @@ public class Footwear {
         // we could provide an IP address if we wanted to a remote pi
         Minecraft minecraft = Minecraft.connect(host);
 
-        // What are frostwalker boots?  Well, they're a bit of magic... they allow the player to
-        // walk on water by freezing it!  How can we achieve this?  Let's break it down into some steps...
-        // First, to walk on water, we'd have to know what the player is walking on, right?
-        // To do that, we'd need to know two things, in order:
-        // Where the player is in the world, and what block are they standing on?
-        // The API let's us do both!  We already know the first bit, so now it's
-        // just part two, asking the API what the block type is one block below the player.
-        // Then, with our knowledge in hand, we just need to check if it's water.
-        // If it is, we again use the API to tell the world to turn that block to ice.
-        // But for this to be effective, it can't just happen once... it has to happen
-        // for some amount of time.  So we'll have to make some sort of loop to check
-        // and recheck at frequent enough intervals
+        // Let's put all the boots in a list, and check each of them each cycle.
 
         // Let's get a variable ready for making this not run forever, in seconds
         int bootsDuration = 30;
